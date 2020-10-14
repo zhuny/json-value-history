@@ -1,6 +1,7 @@
 import json
 
 from json_value_history.controller import SaveController
+from json_value_history.models import DiffTypeEnum
 from json_value_history.util import pprint
 
 
@@ -33,12 +34,15 @@ def run():
     pprint(saver.get_latest())  # submit 이후에 적용된 값이 보여야 됨
 
     # 이번 수정에서 변경된 값을 확인한다.
+    action_command_name = {
+        DiffTypeEnum.CREATE: "추가",
+        DiffTypeEnum.EDIT: "수정",
+        DiffTypeEnum.DELETE: "삭제",
+    }
     for history in saver.get_latest_history():
-        action_commend = [
-            None, "추가", "수정", "삭제"
-        ][history.diff_type]
+        action_commend = action_command_name[history.diff_type]
         print(
-            f"예전 {history.next_attr}의 값이 "
+            f"{history.next_attr}의 값이 "
             f"{history.prev_value!r}에서 {history.next_value!r}로 "
             f"{action_commend}되었습니다."
         )
