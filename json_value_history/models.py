@@ -1,5 +1,3 @@
-from enum import Enum
-
 from sqlalchemy import Column, Integer, JSON, types, ForeignKey
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship

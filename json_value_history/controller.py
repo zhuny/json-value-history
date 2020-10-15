@@ -2,7 +2,6 @@ import time
 
 from sqlalchemy import create_engine, func, or_
 from sqlalchemy.orm import sessionmaker, Session
-from sqlalchemy.testing.assertsql import Or
 
 from json_value_history.models import Base, AttributeSave, DiffTypeEnum, \
     AttributeSaveHistory
@@ -109,7 +108,6 @@ class SaveController:
         length = len(attr)
         last_index = 0
         for attr_row in session.query(AttributeSave).filter(AttributeSave.attr > attr):
-            print(attr_row.attr, attr_row.value)
             if tuple(attr_row.attr[:length]) == attr:
                 last_index = length+1
         return last_index
@@ -137,13 +135,6 @@ class SaveController:
         with self._create_session() as session:
             version = int(time.time())
             for attr_row in session.query(AttributeSave).filter(AttributeSave.diff_type.isnot(None)):
-                print(
-                    attr_row.id,
-                    attr_row.attr, attr_row.value,
-                    attr_row.before_submit_attr, attr_row.before_submit_value,
-                    attr_row.diff_type,
-                    sep="|"
-                )
                 history = AttributeSaveHistory(
                     prev_attr=attr_row.attr, prev_value=attr_row.value,
                     next_attr=attr_row.before_submit_attr or attr_row.attr,

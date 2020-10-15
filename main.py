@@ -1,5 +1,3 @@
-import json
-
 from json_value_history.controller import SaveController
 from json_value_history.models import DiffTypeEnum
 from json_value_history.util import pprint
