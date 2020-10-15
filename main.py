@@ -18,6 +18,21 @@ def run():
         }]
     })
     pprint(saver.get_latest())  # init해둔 값을 확인할 수 있다.
+    '''
+    출력값 :
+    {
+      "experience": [
+        {
+          "company_name": "엑스 주식회사",
+          "end_date": null,
+          "start_date": "2020-02-10"
+        }
+      ],
+      "github": "https://github.com/zhuny",
+      "mail": "zhuny936772@gmail.com",
+      "name": "양지훈"
+    }
+    '''
 
     info = saver.get_latest_with_structure()  # front에서 통신하기 위한 내용들 포함
     saver.append(info['experience'].attr, {
@@ -46,6 +61,13 @@ def run():
             f"{history.prev_value!r}에서 {history.next_value!r}로 "
             f"{action_commend}되었습니다."
         )
+        '''
+        출력값
+        ['experience', 0, 'company_name']의 값이 '엑스 주식회사'에서 '액스 주식회사'로 수정되었습니다.
+        ['experience', 2, 'company_name']의 값이 None에서 '무브 주식회사'로 추가되었습니다.
+        ['experience', 2, 'start_date']의 값이 None에서 '2017-07-10'로 추가되었습니다.
+        ['experience', 2, 'end_date']의 값이 None에서 '2019-12-31'로 추가되었습니다.
+        '''
 
 
 if __name__ == '__main__':
